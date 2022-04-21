@@ -1,23 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import Dashboard from './component/Dasboah/Dashboard';
+import Playlist from './component/PlayLists/Playlist';
+import Test from './component/test/Test'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="player">
+      <Dashboard></Dashboard>
+      <Playlist></Playlist>
+      <Test url='./audio/CoDocVuongDaiMeoRemix-ThienTu-6946271.mp3'></Test>
+    </div>
     </div>
   );
 }
