@@ -3,9 +3,9 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 function Playlist() {
     const songs = useSelector(state => state.songs)
-    console.log(songs)
     const {playlist} = songs
-    console.log(playlist)
+
+    
   return (
     <div className="playlist">
       {playlist.map((song,index) => 

@@ -1,10 +1,26 @@
 import React, {useState, useRef } from 'react'
+import clsx from 'clsx'
 
 function Dashboard() {
+    const [play,setPlay] = useState(false)
     const ref = useRef()
-
+    const inputRef = useRef()
     const handlePlay = ()=> {
-       ref.current.play()
+        var tem = !play
+        setPlay(tem)
+      !play? ref.current.play() : ref.current.pause();
+    }
+    const handleTimeInput= ()=> {
+        if(ref.current.duration){
+            const progressPercent = Math.floor(
+                (ref.current.currentTime / ref.current.duration) * 100
+              );
+              inputRef.current.value=progressPercent
+        }
+    }
+    const handleChangeValue= (e)=> {
+        const seekTime = (e.target.value * ref.current.duration) / 100;
+        ref.current.currentTime = seekTime;
     }
   return (
     <div className="dashboard">
@@ -28,8 +44,8 @@ function Dashboard() {
             onClick={handlePlay}
         
         >
-            <i className="fas fa-pause icon-pause"></i>
-            <i className="fas fa-play icon-play"></i>
+            <i className={clsx('fas','fa-pause',{'icon-hidden':!play})}></i>
+            <i className={clsx('fas','fa-play',{'icon-hidden':play})}></i>
         </div>
         <div className="btn btn-next">
             <i className="fas fa-step-forward"></i>
@@ -38,11 +54,22 @@ function Dashboard() {
             <i className="fas fa-random"></i>
         </div>
         </div>
-        <input id="progress" className="progress" type="range" value="0" step="1" min="0" max="100"/>
+        <input 
+        id="progress" 
+        className="progress" 
+        type="range" 
+        value="0"
+        step="1" 
+        min="0" 
+        max="100"
+        ref={inputRef}
+        onChange={handleChangeValue}
+        />
         <audio
         ref={ref}
          id="audio"
          src="./audio/EmKhongHieu-ChanggMinhHuy-7043556.mp3"
+         onTimeUpdate={handleTimeInput}
          ></audio>
     </div>
   )
