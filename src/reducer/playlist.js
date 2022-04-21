@@ -39,11 +39,50 @@ const initialState = {
           path: "./audio/RoiToiLuon-Nal-7064237.mp3",
           image: "https://i.ytimg.com/vi/QvswgfLDuPg/maxresdefault.jpg",
         },
-                ]
+                ],
+      currentsong:1,
+      isPlaying: false,
 }
 
 const playlist = (state=initialState, actions)=> {
     switch(actions.type){
+      case 'dashboard/nextSong': {
+        const length = state.playlist.length;
+        let newCurrentSong;
+        if(state.currentsong === length-1){
+             newCurrentSong = 0
+        }
+        else if (state.currentsong<length-1){
+
+           newCurrentSong = state.currentsong + 1
+        }
+        return {
+          ...state,
+          currentsong: newCurrentSong
+        }
+      }
+      case 'dashboard/prevSong' : {
+        const length = state.playlist.length;
+        let newCurrentSong;
+        if(state.currentsong == 0){
+             newCurrentSong = length-1
+        }
+        else if (state.currentsong>0){
+
+           newCurrentSong = state.currentsong - 1
+        }
+        return {
+          ...state,
+          currentsong: newCurrentSong
+        }
+      }
+
+      case 'dashboard/playSongWhenClick':{
+        return {
+          ...state,
+          currentsong: actions.payload
+        }
+      }
 
 
         default: return state;

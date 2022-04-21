@@ -131,6 +131,9 @@ header h2 {
   padding: 18px;
   font-size: 18px;
 }
+.control .btn:active {
+  opacity: 0.6;
+}
 
 .control .btn.active {
   color: var(--primary-color);
